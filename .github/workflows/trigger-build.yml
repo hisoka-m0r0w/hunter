@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger build
-        uses: benc-uk/workflow-dispatch@v1.1
+        uses: convictional/trigger-workflow-and-wait@v1.6.5
         with:
-          workflow: Trigger build when public PR is merged
-          token: ${{ secrets.PAT }}
-          repo: ${{ secrets.GITHUBBRASIL_REPO_NWO }}
-          inputs: '{"pr_number": "${{ github.event.number }}", "creator_username": "${{ github.event.pull_request.user.login  }}" }'
+          owner: ${{ secrets.ORG_NAME }}
+          repo: ${{ secrets.REPO_NAME }}
+          workflow_file_name: trigger_build_when_public_pr_merged.yml
+          github_token: ${{ secrets.PAT }}
+          wait_workflow: false
+          client_payload: '{"pr_number": "${{ github.event.number }}", "creator_username": "${{ github.event.pull_request.user.login  }}" }'
