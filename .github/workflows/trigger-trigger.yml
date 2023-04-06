@@ -1,0 +1,17 @@
+name: Trigger Trigger
+on:
+  pull_request:
+    types:
+      - closed
+    paths:
+      - "website/**"
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Trigger build
+          inputs: '{"pr_number": "${{ github.event.number }}", "creator_username": "${{ github.event.pull_request.user.login  }}" }'
