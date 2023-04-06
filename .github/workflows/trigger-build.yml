@@ -1,10 +1,13 @@
 name: Trigger build
 on:
-  pull_request:
-    types:
-      - closed
-    paths:
-      - "website/**"
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Number of the PR which triggered this action"
+        required: true
+      creator_username:
+        description: "Username of the PR creator"
+        required: true
 jobs:
   if_merged:
     if: github.event.pull_request.merged == true
@@ -13,9 +16,7 @@ jobs:
       - name: Trigger build
         uses: convictional/trigger-workflow-and-wait@v1.6.5
         with:
-          owner: ${{ secrets.ORG_NAME }}
-          repo: ${{ secrets.REPO_NAME }}
-          workflow_file_name: trigger_build_when_public_pr_merged.yml
-          github_token: ${{ secrets.PAT }}
-          wait_workflow: false
-          client_payload: '{"pr_number": "${{ github.event.number }}", "creator_username": "${{ github.event.pull_request.user.login  }}" }'
+          repo: ${{ secrets.GITHUBBRASIL_NWO }}
+          workflow: Trigger build when public PR is merged
+          token: ${{ secrets.PAT }}
+          inputs: '{"pr_number": "${{ github.event.inputs.pr_number }}", "creator_username": "${{ github.event.inputs.creator_username }}" }'
