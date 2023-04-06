@@ -12,10 +12,11 @@ Developer Productivity & Tools:
   - heartcombo/devise
   - ellisonleao/magictools
   - go-task/task
+  - hoppscotch/hoppscotch
   - dracula/dracula-theme
 
 Observability:
-  - giropops-monitoring
+  - badtuxx/giropops-monitoring
   
 Machine Learning:
   - nubank/fklearn
